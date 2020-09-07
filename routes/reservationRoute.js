@@ -7,11 +7,11 @@ const Reservation = require('../models/Reservation').model
 
 
 router.get('/', function (req, res, next) {
-    Day.find({ date: req.body.date }, (err, docs) => {
+    Day.find({ date: req.body.date }, (err, days) => {
         if (!err) {
             if (days.length > 0) {
-                let days = days[0]
-                days.tables.forEach(table => {
+                let day = days[0]
+                day.tables.forEach(table => {
                     if (table._id == req.body.table) {
                         //Correct table is table
                         table.reservation = new Reservation({
@@ -20,7 +20,7 @@ router.get('/', function (req, res, next) {
                             email: req.email
                         })
                         table.isAvailable = false
-                        days.save(err => {
+                        day.save(err => {
                             if (err) {
                                 console.log(err)
                             } else {

@@ -12,7 +12,8 @@ router.post('/', function (req, res, next) {
   console.log('request attempted')
   console.log(req.body)
 
-  const dateTime = new Date(req.body.date)
+  const dateTime = new Date(req.body.date);
+
   Day.find({ date: dateTime }, (err, docs) => {
     if (!err) {
       if (docs.length > 0) {
@@ -28,7 +29,7 @@ router.post('/', function (req, res, next) {
         })
         day.save(err => {
           if (err) {
-            res.status(400).send('Error saving new data')
+            res.status(400).send('Error saving new date')
           } else {
             //Saved date and need to return all tables
             console.log('Created new datetime. Here are default docs')
@@ -45,3 +46,6 @@ router.post('/', function (req, res, next) {
 });
 
 module.exports = router;
+
+
+
